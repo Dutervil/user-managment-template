@@ -50,6 +50,7 @@ public abstract class Auditable {
         setCreatedBy(userId);
         setUpdatedBy(userId);
         setUpdatedAt(now());
+
     }
 
     @PreUpdate

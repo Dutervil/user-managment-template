@@ -12,10 +12,11 @@ ACTIVE_PROFILE: dev
 #Email Config
 EMAIL_HOST: smtp.gmail.com
 EMAIL_PORT: 587
-EMAIL_ID:
-EMAIL_PASSWORD:
+EMAIL_ID: dwadson3@gmail.com
+EMAIL_PASSWORD: cpkd ychj jtgs lqdd
 VERIFY_EMAIL_HOST: http://localhost:5173
 
 JWT_EXPIRATION: 432_000_000
 #JWT_SECRET: ${SECRET}
-JWT_SECRET: jskjdsioi3i3289832kjjewkjw
+
+JWT_SECRET: uDJTsAMm2XHFV3Ib4YeapsRZF2v+bRrICDtkH4sBbRuGYxq49vmy6I4ZG3GLMc+FlgDgQsdLdJdhojq0Vouirg==

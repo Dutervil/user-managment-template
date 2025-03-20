@@ -40,10 +40,14 @@ public class ApiAuthenticationFilter extends AbstractAuthenticationProcessingFil
         super(new AntPathRequestMatcher(LOGIN_PATH, POST.name()), authenticationManager);
         this.userService = userService;
         this.jwtService = jwtService;
+
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+
+
+
         try {
             var user = new ObjectMapper().configure(AUTO_CLOSE_SOURCE, true).readValue(request.getInputStream(), LoginRequest.class);
             userService.updateLoginAttempt(user.getEmail(), LOGIN_ATTEMPT);
