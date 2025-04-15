@@ -8,11 +8,11 @@
         <version>3.4.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.usermanagement.template</groupId>
-    <artifactId>UserManagmentTemplate</artifactId>
+    <groupId>com.dev.stockApi</groupId>
+    <artifactId>Stock management API</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>UserManagmentTemplate</name>
-    <description>UserManagmentTemplate</description>
+    <name>Stock</name>
+    <description>Stock</description>
     <url/>
     <licenses>
         <license/>
@@ -27,7 +27,7 @@
         <url/>
     </scm>
     <properties>
-        <java.version>17</java.version>
+        <java.version>21</java.version>
     </properties>
     <dependencies>
         <dependency>
