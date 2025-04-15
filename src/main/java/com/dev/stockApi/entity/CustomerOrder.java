@@ -1,9 +1,7 @@
 package com.dev.stockApi.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import com.dev.stockApi.enumeration.OrderStatus;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,6 +20,8 @@ public class CustomerOrder extends Auditable {
 
     private String OrderId;
     private Instant OrderDate;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;

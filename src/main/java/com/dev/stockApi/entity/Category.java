@@ -16,11 +16,12 @@ import java.util.List;
 @Entity
 public class Category  extends Auditable{
 
-    private String code;
+
     private String name;
+    private String imageUrl;
 
     @OneToMany(mappedBy ="category" )
     private List<Product> products;
-    private Integer companyId;
+
 
 }

@@ -24,6 +24,7 @@ public class Product extends Auditable{
     private BigDecimal unitPriceInclTax;
     private BigDecimal taxRate;
     private String photoUrl;
+    private Integer quantity;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
