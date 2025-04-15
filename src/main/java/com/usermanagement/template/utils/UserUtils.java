@@ -9,6 +9,7 @@ import dev.samstevens.totp.code.HashingAlgorithm;
 import dev.samstevens.totp.qr.QrData;
 import dev.samstevens.totp.qr.ZxingPngQrGenerator;
 import dev.samstevens.totp.secret.DefaultSecretGenerator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
 import java.util.UUID;
@@ -20,6 +21,7 @@ import static com.usermanagement.template.constant.Constants.NINETY_DAYS;
 import static dev.samstevens.totp.util.Utils.getDataUriForImage;
 import static java.time.LocalDateTime.now;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
+@Slf4j
 public class UserUtils {
     public static UserEntity createUserEntity(String firstName, String lastName, String email, RoleEntity role) {
         return UserEntity.builder()
@@ -73,6 +75,7 @@ public class UserUtils {
         byte[] imageData;
         try {
             imageData = generator.generate(data);
+            log.info("Generated QR code image data: {}", imageData);
         } catch (Exception exception) {
             //throw new ApiException(exception.getMessage());
             throw new ApiException("Unable to create QR code URI");

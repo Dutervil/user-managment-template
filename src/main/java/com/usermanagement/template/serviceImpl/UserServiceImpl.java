@@ -138,6 +138,7 @@ public class UserServiceImpl implements UserService {
     public User setUpMfa(Long id) {
         var userEntity = getUserEntityById(id);
         var codeSecret = qrCodeSecret.get();
+        log.info(codeSecret);
         userEntity.setQrCodeImageUri(qrCodeImageUri.apply(userEntity.getEmail(), codeSecret));
         userEntity.setQrCodeSecret(codeSecret);
         userEntity.setMfa(true);
