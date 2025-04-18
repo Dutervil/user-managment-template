@@ -6,10 +6,10 @@ import com.dev.stockApi.service.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.http.MediaType;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+
 
 
 import java.io.IOException;
@@ -39,7 +39,6 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<Response> get(@PathVariable Long id,HttpServletRequest request) {
         return ResponseEntity.ok().body(getResponse(request, Map.of("product", productService.getProductById(id)), "Product retrieved", OK));
-
 
     }
     @GetMapping
