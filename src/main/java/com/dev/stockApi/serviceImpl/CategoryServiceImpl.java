@@ -26,10 +26,10 @@ public class CategoryServiceImpl implements CategoryService {
     private final FileStorageService fileStorageService;
 
     @Override
-    public CategoryDto createCategory(String name, MultipartFile image) throws ApiException {
+    public CategoryDto createCategory(CategoryRequest categoryRequest, MultipartFile image) throws ApiException {
         Category category = new Category();
-        category.setName(name);
-        category.setImageUrl( image!=null ? fileStorageService.uploadPhoto(name,  image) : DEFAULT_CATEGORY_IMAGE);
+        category.setName(categoryRequest.getName());
+        category.setImageUrl( image!=null ? fileStorageService.uploadPhoto(categoryRequest.getName(),  image) : DEFAULT_CATEGORY_IMAGE);
         categoryRepository.save(category);
         return CategoryDto.fromEntity(category);
     }
@@ -61,6 +61,15 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteCategory(Long id) {
-      this.categoryRepository.deleteById(id);
+        Category category = this.categoryRepository.findCategoryById(id);
+        if (category == null) {
+            throw new ApiException("Category not found.");
+        }
+
+        if (category.getProducts() != null && !category.getProducts().isEmpty()) {
+            throw new ApiException("This Category has products associated with it. Please delete the products before deleting the category.");
+        }
+
+        this.categoryRepository.deleteById(id);
     }
 }

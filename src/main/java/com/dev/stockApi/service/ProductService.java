@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProductService {
 
-    ProductDto createProduct(ProductDto dto);
+    ProductDto createProduct(ProductDto dto, MultipartFile image);
     ProductDto getProductById(Long id);
     List<ProductDto> getAllProducts();
     ProductDto updateProduct(Long id, ProductDto dto);

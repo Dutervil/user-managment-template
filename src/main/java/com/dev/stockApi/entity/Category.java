@@ -1,6 +1,7 @@
 package com.dev.stockApi.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +21,7 @@ public class Category  extends Auditable{
     private String name;
     private String imageUrl;
 
-    @OneToMany(mappedBy ="category" )
+    @OneToMany(mappedBy ="category",fetch = FetchType.EAGER)
     private List<Product> products;
 
 

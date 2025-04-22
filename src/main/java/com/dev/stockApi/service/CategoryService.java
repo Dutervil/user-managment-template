@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CategoryService {
 
-    CategoryDto createCategory(String name, MultipartFile image);
+    CategoryDto createCategory(CategoryRequest categoryRequest, MultipartFile image);
     CategoryDto getCategoryById(Long id);
     List<CategoryDto> getAllCategories();
     CategoryDto updateCategory(String name, MultipartFile image,Long id);

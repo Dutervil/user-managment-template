@@ -31,8 +31,8 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<Response> createProduct(HttpServletRequest request, @RequestBody ProductDto productDto ) {
-        return ResponseEntity.ok().body(getResponse(request, Map.of("product", productService.createProduct(productDto)), "New product added", OK));
+    public ResponseEntity<Response> createProduct(HttpServletRequest request, @RequestPart("product") ProductDto productDto, @RequestParam(value = "image",required = false) org.springframework.web.multipart.MultipartFile image ) {
+        return ResponseEntity.ok().body(getResponse(request, Map.of("product", productService.createProduct(productDto, image)), "New product added", OK));
     }
 
 

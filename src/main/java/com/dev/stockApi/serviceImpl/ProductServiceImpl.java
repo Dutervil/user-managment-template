@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.dev.stockApi.constant.Constants.DEFAULT_CATEGORY_IMAGE;
+import static com.dev.stockApi.constant.Constants.DEFAULT_PRODUCT_IMAGE;
+
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -30,11 +33,11 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public ProductDto createProduct(ProductDto dto ) {
+    public ProductDto createProduct(ProductDto dto, MultipartFile image ) throws ApiException {
 
         Category category = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new ApiException("Category not found"));
         Product product = productMapper.toEntity(dto, category);
-        product.setPhotoUrl("https://cdn-icons-png.flaticon.com/512/679/679720.png");
+        product.setPhotoUrl( image!=null ? fileStorageService.uploadPhoto(dto.getId()+"",  image) : DEFAULT_PRODUCT_IMAGE);
         Product saved = productRepository.save(product);
         return productMapper.toDto(saved);
     }
