@@ -5,9 +5,12 @@ import com.dev.stockApi.dto.ProductDto;
 import com.dev.stockApi.entity.Category;
 import com.dev.stockApi.entity.Product;
 import com.dev.stockApi.serviceImpl.ProductServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component
+
 public class ProductMapper {
 
     public ProductDto toDto(Product product) {
@@ -27,7 +30,15 @@ public class ProductMapper {
     public Product toEntity(ProductDto dto, Category category) {
         Product product = new Product();
         product.setId(dto.getId());
-        ProductServiceImpl.ExistingProduct(dto, product, category);
+        product.setCode(dto.getCode());
+        product.setName(dto.getName());
+        product.setUnitPriceExclTax(dto.getUnitPriceExclTax());
+        product.setUnitPriceInclTax(dto.getUnitPriceInclTax());
+        product.setTaxRate(dto.getTaxRate());
+        product.setPhotoUrl( dto.getPhotoUrl());
+        product.setCategory(category);
+        product.setQuantity(dto.getQuantity());
+
         return product;
     }
 }

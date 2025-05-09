@@ -47,11 +47,13 @@ public class ProductController {
 
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Response> update(@PathVariable Long id, @RequestBody ProductDto dto,HttpServletRequest request) {
-        return ResponseEntity.ok().body(getResponse(request, Map.of("product", productService.updateProduct(id, dto)), "Product updated", OK));
+    @PatchMapping("/{id}")
+    public ResponseEntity<Response> update(@PathVariable Long id, @RequestPart("product") ProductDto dto,HttpServletRequest request,@RequestParam(value = "image",required = false) org.springframework.web.multipart.MultipartFile image ) {
+        return ResponseEntity.ok().body(getResponse(request, Map.of("product", productService.updateProduct(id, dto,image)), "Product updated", OK));
 
     }
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Response> delete(@PathVariable Long id,HttpServletRequest request) {

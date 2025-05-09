@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.UUID;
+
 import java.util.stream.Collectors;
 
-import static com.dev.stockApi.constant.Constants.DEFAULT_CATEGORY_IMAGE;
+
 import static com.dev.stockApi.constant.Constants.DEFAULT_PRODUCT_IMAGE;
 
 @Service
@@ -38,6 +38,7 @@ public class ProductServiceImpl implements ProductService {
         Category category = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new ApiException("Category not found"));
         Product product = productMapper.toEntity(dto, category);
         product.setPhotoUrl( image!=null ? fileStorageService.uploadPhoto(dto.getId()+"",  image) : DEFAULT_PRODUCT_IMAGE);
+        product.setQuantity(0);
         Product saved = productRepository.save(product);
         return productMapper.toDto(saved);
     }
@@ -58,24 +59,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto updateProduct(Long id, ProductDto dto) {
-        Product existing = productRepository.findById(id)
-                .orElseThrow(() -> new ApiException("Product not found"));
-        Category category = categoryRepository.findById(dto.getCategoryId())
-                .orElseThrow(() -> new ApiException("Category not found"));
-        ExistingProduct(dto, existing, category);
-        return productMapper.toDto(productRepository.save(existing));
-    }
+    public ProductDto updateProduct(Long id, ProductDto dto,MultipartFile image) {
+        Product existing = productRepository.findById(id).orElseThrow(() -> new ApiException("Product not found"));
+        Category category = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new ApiException("Category not found"));
 
-    public static void ExistingProduct(ProductDto dto, Product existing, Category category) {
         existing.setCode(dto.getCode());
         existing.setName(dto.getName());
         existing.setUnitPriceExclTax(dto.getUnitPriceExclTax());
         existing.setUnitPriceInclTax(dto.getUnitPriceInclTax());
         existing.setTaxRate(dto.getTaxRate());
-        existing.setPhotoUrl(dto.getPhotoUrl());
-        existing.setQuantity(dto.getQuantity());
+        existing.setPhotoUrl( image!=null ? fileStorageService.uploadPhoto(dto.getId()+"" ,image ) : existing.getPhotoUrl());
         existing.setCategory(category);
+        return productMapper.toDto(productRepository.save(existing));
     }
 
     @Override
